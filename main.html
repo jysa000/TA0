@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TA0</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+        // on load
+        var canvas, ctx, scale;
+        var canvasHeight = 500, canvasWidth = 500;
+
+        $(function () {
+            canvas = document.querySelector('canvas');
+            ctx = canvas.getContext("2d");
+
+            scale = window.devicePixelRatio;
+            ctx.scale(scale, scale);
+            canvas.width = canvasWidth * scale;
+            canvas.height = canvasHeight * scale;
+            canvas.style.width = canvasWidth + "px";
+            canvas.style.height = canvasHeight + "px";
+
+
+            setInterval(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                update();
+            }, 100);
+        });
+
+        let gridNumber = 1;
+        function update() {
+            ctx.beginPath();
+
+            gridNumber++;
+            drawGrid(gridNumber);
+
+            if (gridNumber > 10) {
+                gridNumber = 1;
+            }
+
+            ctx.closePath();
+        }
+
+
+
+
+        function drawGrid(gridNumber = 10) {
+            ctx.beginPath();
+            for (let index = 0; index <= gridNumber; index++) {
+                ctx.moveTo(index * (canvasHeight / gridNumber), 0);
+                ctx.lineTo(index * (canvasHeight / gridNumber), canvasHeight);
+                ctx.moveTo(0, index * (canvasWidth / gridNumber));
+                ctx.lineTo(canvasWidth, index * (canvasWidth / gridNumber));
+            }
+            ctx.strokeStyle = "red"
+            ctx.stroke();
+        }
+
+        function drawRectangle(vertices) {
+            
+            
+        }
+    </script>
+    </head>
+
+
+
+    <body>
+        <canvas id="canvas" class="canvas"></canvas>
+    </body>
+</html>
